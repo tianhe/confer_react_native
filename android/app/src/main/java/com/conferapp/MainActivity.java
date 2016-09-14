@@ -1,6 +1,8 @@
 package com.conferapp;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.reactnativenavigation.RnnPackage;
 
 public class MainActivity extends ReactActivity {
 

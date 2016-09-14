@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, ListView, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, ListView, View, TouchableHighlight, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 
 
@@ -9,7 +9,6 @@ export default class ContactList extends Component {
     var dataSource = new ListView.DataSource(
       {rowHasChanged: (r1, r2) => r1.guid !== r2.guid }
     );
-    console.log(this.props)
     this.state = {
       dataSource: dataSource.cloneWithRows(this.props.brothers)
     }
@@ -20,6 +19,7 @@ export default class ContactList extends Component {
       <TouchableHighlight underlayColor='#DDDDDD' onPress={() => this.rowPressed(rowData)}>
         <View>
           <View style={styles.row}>
+            <Image source={{uri: rowData.photo_url}} style={styles.thumbnail} />
             <Text style={styles.name}>{rowData.name}</Text>
             <Text style={styles.year}>{rowData.year}</Text>
           </View>
@@ -30,17 +30,12 @@ export default class ContactList extends Component {
   }
 
   rowPressed(brotherData) {
-    console.log(brotherData)
     Actions.contactDetail(brotherData)
   }
 
   render() {
     return(
       <View>
-        <View style={styles.pageTitle}>
-          <Text>Brothers Directory</Text>
-        </View>
-
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
@@ -60,7 +55,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     margin: 10,
-    height: 40
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   name: {
     fontSize: 20,
@@ -73,5 +70,10 @@ const styles = StyleSheet.create({
   separator: {
     height: 1,
     backgroundColor: '#DDDDDD'
+  },
+  thumbnail: {
+    height: 40,
+    width: 40,
+    borderRadius: 20
   }
 });

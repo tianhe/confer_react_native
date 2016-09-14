@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, ListView, View, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import Moment from 'moment'
-
+import Device from 'react-native-device'
 
 export default class EventList extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class EventList extends Component {
     start_time = Moment(rowData.start_time).format('hh:mm a')
 
     return (
-      <TouchableHighlight underlayColor='#DDD' onPress={() => this.rowPressed(rowData)}>
+      <TouchableHighlight underlayColor='#DDD' onPress={() => this.onRowPress(rowData)}>
         <View>
           <View style={styles.row}>
             <Text style={styles.time}>{start_time}</Text>
@@ -31,7 +31,7 @@ export default class EventList extends Component {
     );
   }
 
-  rowPressed(rowData) {
+  onRowPress(rowData) {
     Actions.eventDetail(rowData)
   }
 
@@ -49,11 +49,12 @@ export default class EventList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 80
+    marginTop: 65
   },
   row: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
     margin: 10,
     height: 40
   },
