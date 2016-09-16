@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-import Device from 'react-native-device'
+
+import styles from '../styles/common_styles.js';
 
 export default class EventDetail extends Component {
   render() {
     let organizers = this.props.organizers.map( (organizer) => {
       return (
-        <View style={[styles.contactContainer, styles.row]} key={organizer.id}>
+        <View style={[pageStyles.contactContainer, pageStyles.row]} key={organizer.id}>
           <Image source={{uri: organizer.photo_url}} style={styles.thumbnail}/>
-          <Text style={styles.contactName}>{organizer.name}</Text>
-          <Text style={styles.contactPhone}>{organizer.phone}</Text>
+          <Text style={pageStyles.contactName}>{organizer.name}</Text>
+          <Text style={pageStyles.contactPhone}>{organizer.phone}</Text>
         </View>
       )
     });
@@ -17,13 +18,13 @@ export default class EventDetail extends Component {
     return(
       <View style={styles.container}>
         <Image source={{uri: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F22580640%2F179281360805%2F1%2Foriginal.jpg?w=2000&rect=0%2C431%2C5184%2C2592&s=35868d9e908b8736c6724915c85d5c54'}} style={styles.hero}>
-          <View style={styles.intro}>
-            <Text style={styles.titleText}>{this.props.title}</Text>
-            <Text style={styles.titleText}>{this.props.start_time}</Text>
-            <Text style={styles.titleText}>{this.props.location}</Text>
+          <View style={styles.heroInfo}>
+            <Text style={pageStyles.titleText}>{this.props.title}</Text>
+            <Text style={pageStyles.titleText}>{this.props.start_time}</Text>
+            <Text style={pageStyles.titleText}>{this.props.location}</Text>
           </View>
         </Image>
-        <View style={styles.primaryInfo}>
+        <View>
           {organizers}
         </View>
       </View>
@@ -31,18 +32,7 @@ export default class EventDetail extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 64
-  },
-  intro: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    margin: 10,
-    backgroundColor: 'transparent',
-  },
+const pageStyles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -50,10 +40,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: 'white'
-  },
-  hero: {
-    height: 150,
-    width:  Device.width
   },
   contactContainer: {
     flex: 3,
@@ -65,10 +51,5 @@ const styles = StyleSheet.create({
   },
   contactPhone: {
     margin: 5
-  },
-  thumbnail: {
-    height: 20,
-    width: 20,
-    borderRadius: 10
   }
 });

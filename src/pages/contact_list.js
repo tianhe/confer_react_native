@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, ListView, View, TouchableHighlight, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux'
-
+import styles from '../styles/common_styles.js';
 
 export default class ContactList extends Component {
   constructor(props) {
@@ -18,10 +18,10 @@ export default class ContactList extends Component {
     return (
       <TouchableHighlight underlayColor='#DDDDDD' onPress={() => this.rowPressed(rowData)}>
         <View>
-          <View style={styles.row}>
-            <Image source={{uri: rowData.photo_url}} style={styles.thumbnail} />
-            <Text style={styles.name}>{rowData.name}</Text>
-            <Text style={styles.year}>{rowData.year}</Text>
+          <View style={pageStyles.row}>
+            <Image source={{uri: rowData.photo_url}} style={styles.thumbnailLarge} />
+            <Text style={pageStyles.name}>{rowData.name}</Text>
+            <Text style={pageStyles.year}>{rowData.year}</Text>
           </View>
           <View style={styles.separator}/>
         </View>
@@ -45,12 +45,7 @@ export default class ContactList extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  pageTitle: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
+const pageStyles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
@@ -67,13 +62,4 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontSize: 16
   },
-  separator: {
-    height: 1,
-    backgroundColor: '#DDDDDD'
-  },
-  thumbnail: {
-    height: 40,
-    width: 40,
-    borderRadius: 20
-  }
 });

@@ -1,6 +1,8 @@
 package com.conferapp;
 
 import com.facebook.react.ReactActivity;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.smixx.reactnativeicons.ReactNativeIcons;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.reactnativenavigation.RnnPackage;
 

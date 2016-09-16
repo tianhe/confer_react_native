@@ -1,19 +1,20 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { AppRegistry, StyleSheet, Text, View, AsyncStorage } from 'react-native'
 import { Scene, Router, TabBar } from 'react-native-router-flux'
-import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 
-import EventList from './EventList'
-import EventDetail from './EventDetail'
-import ContactList from './ContactList'
-import ContactDetail from './ContactDetail'
-import Profile from './Profile'
-import EditName from './EditName'
+import EventList from './src/pages/event_list'
+import EventDetail from './src/pages/event_detail'
+
+import ContactList from './src/pages/contact_list'
+import ContactDetail from './src/pages/contact_detail'
+
+import Profile from './src/pages/profile'
+import EditName from './src/pages/edit_name'
+import Login from './src/pages/login'
+import Signup from './src/pages/signup'
+
+import * as firebase from 'firebase'
+// import TabIcon from './src/components/tab_icon'
 
 class TabIcon extends React.Component {
   render(){
@@ -26,11 +27,21 @@ class TabIcon extends React.Component {
 class ConferApp extends Component {
   constructor(props){
     super(props)
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDtKZmXbRskiomqQ5c4VdS4fL8tqIo6ayQ",
+      authDomain: "confer-4fc4b.firebaseapp.com",
+      databaseURL: "https://confer-4fc4b.firebaseio.com",
+      storageBucket: "confer-4fc4b.appspot.com",
+      messagingSenderId: "539404686197"
+    }
+    firebase.initializeApp(firebaseConfig)
+
     this.state = {
-      page: 'events',
       events: [
         {id: 1, title: 'Basketball Tournament', location: 'Bro Walter\'s House',
-          start_time: '2016-09-03 11:00', end_time: '2016-09-03 12:00', attendees:
+          start_time: '2016-09-03 11:00', end_time: '2016-09-03 12:00',
+          attendees:
            [{id: 1, name: 'Tian He'},
             {id: 3, name: 'Nick Sheng'}
            ],
@@ -38,7 +49,8 @@ class ConferApp extends Component {
             { id: 1, name: 'Nick Sheng', phone: '555-555-5555', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/11949268_10104278964033579_7069632376703940401_n.jpg?oh=6d078dd8ecd7c7977d243d3f45eed366&oe=58868C7B'}]
         },
         {id: 2, title: 'Gala', location: 'White House',
-          start_time: '2016-09-03 18:00', end_time: '2016-09-03 12:00', attendees:
+          start_time: '2016-09-03 18:00', end_time: '2016-09-03 12:00',
+          attendees:
            [{id: 1, name: 'Tian He'},
             {id: 3, name: 'Nick Sheng'}
            ],
@@ -47,13 +59,14 @@ class ConferApp extends Component {
           }]
         },
         {id: 3, title: 'Orchid Hour', location: 'White House',
-          start_time: '2016-09-03 16:00', end_time: '2016-09-03 12:00', attendees:
+          start_time: '2016-09-03 16:00', end_time: '2016-09-03 12:00',
+          attendees:
            [{id: 1, name: 'Tian He'},
             {id: 3, name: 'Nick Sheng'}
            ],
           organizers: [{
             id: 3, name: 'Nick Sheng', phone: '555-555-5555'
-          }]  
+          }]
         },
       ],
       brothers: [
@@ -70,18 +83,20 @@ class ConferApp extends Component {
       <Router>
         <Scene key="root">
           <Scene key='tabbar'>
-            <Scene key='main' tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-              <Scene key='events_tab' initial title='Events' icon={TabIcon} titleStyle={styles.tabTitleStyle}>
+            <Scene key='main' tabs={true} tabBarStyle={pageStyles.tabBarStyle} tabBarSelectedItemStyle={pageStyles.tabBarSelectedItemStyle}>
+              <Scene key='eventsTab' initial title='Events' icon={TabIcon} titleStyle={pageStyles.tabTitleStyle}>
                 <Scene key='eventsList' initial title='Events'
                   component={() => <EventList {...this.state}/>} />
                 <Scene key='eventDetail' component={EventDetail} title="Event Detail"/>
               </Scene>
-              <Scene key='brothers_tab' title='Brothers' icon={TabIcon} titleStyle={styles.tabTitleStyle}>
+              <Scene key='brothersTab' title='Brothers' icon={TabIcon} titleStyle={pageStyles.tabTitleStyle}>
                 <Scene key='contactsList' component={(props) => <ContactList {...this.state}/>} title="Brothers"/>
                 <Scene key='contactDetail' component={ContactDetail} title="Contact Detail"/>
               </Scene>
-              <Scene key='profile_tab' title='Profile' icon={TabIcon} titleStyle={styles.tabTitleStyle}>
-                <Scene key='profile' component={(props) => <Profile {...this.state.brothers[0]}/>} title="Profile"/>
+              <Scene key='profileTab' title='Profile' icon={TabIcon} titleStyle={pageStyles.tabTitleStyle}>
+                <Scene key='profile' component={Profile} title="Profile"/>
+                <Scene key='login' component={Login} title="Login"/>
+                <Scene key='signup' component={Signup} title="Signup"/>
                 <Scene key='editName' component={EditName} title="Edit"/>
               </Scene>
             </Scene>
@@ -92,17 +107,13 @@ class ConferApp extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const pageStyles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: '#eee',
   },
   tabBarSelectedItemStyle: {
     backgroundColor: '#ddd'
-  },
-  // tabTitleStyle: {
-  //   backgroundColor: 'blue'
-  // }
-
+  }
 });
 
 AppRegistry.registerComponent('ConferApp', () => ConferApp);

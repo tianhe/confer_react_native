@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, ListView, View, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import Moment from 'moment'
-import Device from 'react-native-device'
+
+import styles from '../styles/common_styles.js';
 
 export default class EventList extends Component {
   constructor(props) {
@@ -21,9 +22,9 @@ export default class EventList extends Component {
     return (
       <TouchableHighlight underlayColor='#DDD' onPress={() => this.onRowPress(rowData)}>
         <View>
-          <View style={styles.row}>
-            <Text style={styles.time}>{start_time}</Text>
-            <Text style={styles.title}>{rowData.title}</Text>
+          <View style={pageStyles.row}>
+            <Text style={pageStyles.time}>{start_time}</Text>
+            <Text style={pageStyles.titleText}>{rowData.title}</Text>
           </View>
           <View style={styles.separator}/>
         </View>
@@ -47,10 +48,7 @@ export default class EventList extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 65
-  },
+const pageStyles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
@@ -62,12 +60,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     width: 125
   },
-  title: {
+  titleText: {
     marginLeft: 5,
     fontSize: 16
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#DDDDDD'
   }
 });
