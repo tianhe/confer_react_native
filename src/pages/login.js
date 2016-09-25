@@ -38,12 +38,12 @@ export default class Login extends Component {
           />
           <Button
             text="Login"
-            onpress={this.login.bind(this)}
+            onPress={this.login.bind(this)}
             buttonStyles={styles.primary_button}
             buttonTextStyles={styles.primary_button_text} />
           <Button
             text="New here?"
-            onpress={this.goToSignup.bind(this)}
+            onPress={this.goToSignup.bind(this)}
             buttonStyles={styles.transparent_button}
             buttonTextStyles={styles.transparent_button_text} />
         </View>
@@ -55,13 +55,16 @@ export default class Login extends Component {
     this.setState({ loaded: false })
 
     firebase.auth().signInWithEmailAndPassword(this.state.email,
-      this.state.password).then( firebaseUser => {
-        AsyncStorage.setItem('user_data', JSON.stringify(firebaseUser))
-        Actions.profile()
-      }).catch( error => {
-        this.setState({ loaded: true });
-        alert('Login Failed. Please try again');
-      })
+      this.state.password)
+    .then( firebaseUser => {
+      AsyncStorage.setItem('user_data', JSON.stringify(firebaseUser))
+      console.log(firebaseUser)
+      Actions.profile(email: firebaseUser.email, photo_url: firebaseUser.photo_url, name: firebaseUser.displayName)
+    })
+    .catch( error => {
+      this.setState({ loaded: true });
+      alert('Login Failed. Please try again');
+    })
   }
 
   goToSignup(){

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import Device from 'react-native-device'
+import Moment from 'moment'
 
 import styles from '../styles/common_styles.js';
 
@@ -16,13 +17,15 @@ export default class EventDetail extends Component {
       )
     });
 
+    let start_time = Moment(this.props.start_time).format('h:mm A')
+
     return(
       <View style={styles.container}>
         <Image source={{uri: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F22580640%2F179281360805%2F1%2Foriginal.jpg?w=2000&rect=0%2C431%2C5184%2C2592&s=35868d9e908b8736c6724915c85d5c54'}} style={styles.hero}>
           <View style={pageStyles.intro}>
             <Text style={pageStyles.titleText}>{this.props.title}</Text>
-            <Text style={pageStyles.titleText}>{this.props.start_time}</Text>
-            <Text style={pageStyles.titleText}>{this.props.location}</Text>
+            <Text style={pageStyles.titleText}>@{this.props.location}</Text>
+            <Text style={pageStyles.titleText}>{start_time}</Text>
           </View>
         </Image>
         <View style={styles.primaryInfo}>

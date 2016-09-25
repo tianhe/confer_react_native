@@ -16,17 +16,34 @@ export default class EventList extends Component {
     }
   }
 
+  render() {
+    return(
+      <View style={styles.container}>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)}
+          renderSeparator={this.renderSeparator.bind(this)}
+        />
+      </View>
+    )
+  }
+
+  renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
+      return (
+        <View key={`${sectionID}-${rowID}`} style={styles.separator}/>
+      )
+  }
+
   renderRow(rowData, sectionID, rowID) {
-    start_time = Moment(rowData.start_time).format('hh:mm a')
+    start_time = Moment(rowData.start_time).format('hh:mm A')
 
     return (
       <TouchableHighlight underlayColor='#DDD' onPress={() => this.onRowPress(rowData)}>
         <View>
           <View style={pageStyles.row}>
-            <Text style={pageStyles.time}>{start_time}</Text>
+            <Text style={[pageStyles.time, styles.monotypeFont]}>{start_time}</Text>
             <Text style={pageStyles.titleText}>{rowData.title}</Text>
           </View>
-          <View style={styles.separator}/>
         </View>
       </TouchableHighlight>
     );
@@ -34,17 +51,6 @@ export default class EventList extends Component {
 
   onRowPress(rowData) {
     Actions.eventDetail(rowData)
-  }
-
-  render() {
-    return(
-      <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
-        />
-      </View>
-    )
   }
 }
 

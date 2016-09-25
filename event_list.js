@@ -3,6 +3,8 @@ import { StyleSheet, Text, ListView, View, TouchableHighlight } from 'react-nati
 import { Actions } from 'react-native-router-flux'
 import Moment from 'moment'
 
+import styles from '../styles/common_styles.js';
+
 export default class EventList extends Component {
   constructor(props) {
     super(props)
@@ -14,17 +16,28 @@ export default class EventList extends Component {
     }
   }
 
+  render() {
+    return(
+      <View style={styles.container}>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)}
+          renderSeparator={this.renderSeparator.bind(this)}
+        />
+      </View>
+    )
+  }
+
   renderRow(rowData, sectionID, rowID) {
-    start_time = Moment(rowData.start_time).format('hh:mm a')
+    let start_time = Moment(rowData.start_time).format('h:mm A')
 
     return (
       <TouchableHighlight underlayColor='#DDD' onPress={() => this.onRowPress(rowData)}>
         <View>
           <View style={styles.row}>
-            <Text style={styles.time}>{start_time}</Text>
-            <Text style={styles.title}>{rowData.title}</Text>
+            <Text style={pageStyles.time}>{start_time}</Text>
+            <Text style={pageStyles.title}>{rowData.title}</Text>
           </View>
-          <View style={styles.separator}/>
         </View>
       </TouchableHighlight>
     );
@@ -34,29 +47,14 @@ export default class EventList extends Component {
     Actions.eventDetail(rowData)
   }
 
-  render() {
-    return(
-      <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
-        />
-      </View>
+  renderSeparator(sectionId, rowId){
+    return (
+      <View key={rowId} style={styles.separator}/>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 65
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: 10,
-    height: 40
-  },
+const pageStyles = StyleSheet.create({
   time: {
     fontSize: 24,
     width: 125
@@ -65,8 +63,4 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontSize: 16
   },
-  separator: {
-    height: 1,
-    backgroundColor: '#DDDDDD'
-  }
 });

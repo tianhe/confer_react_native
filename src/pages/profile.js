@@ -2,16 +2,18 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, AsyncStorage, TouchableHighlight } from 'react-native'
 
 import { Actions } from 'react-native-router-flux'
-import { LoginButton, AccessToken } from 'react-native-fbsdk'
 
 import Button from '../components/button'
 import styles from '../styles/common_styles'
+
+import * as firebase from 'firebase'
 
 export default class Profile extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      userSignedIn: false,
       name: this.props.name,
       year: this.props.year,
       location: this.props.location
@@ -19,7 +21,7 @@ export default class Profile extends Component {
   }
 
   render() {
-    if(this.state.user != null){
+    if(this.state.userSignedIn){
       return(
         <View style={styles.container}>
           <View style={pageStyles.intro}>
@@ -29,13 +31,18 @@ export default class Profile extends Component {
             <Text>{this.state.year}</Text>
             <Text>{this.state.location}</Text>
           </View>
+          <Button
+            text="Logout"
+            onPress={this.onPressLogout.bind(this)}
+            buttonStyles={styles.primary_button}
+            buttonTextStyles={styles.primary_button_text} />
         </View>
       )
     } else {
       return(
         <View style={styles.container}>
           <Button
-            text="Signup with Email"
+            text="Signup"
             onPress={this.onPressSignup.bind(this)}
             buttonStyles={styles.primary_button}
             buttonTextStyles={styles.primary_button_text} />
@@ -47,51 +54,46 @@ export default class Profile extends Component {
         </View>
       )
     }
+  }
+  // <Picker
+  //   style={styles.picker}
+  //   selectedValue={this.state.location}
+  //   onValueChange={this.onValueChange.bind(this, 'location')}
+  //   mode="dropdown">
+  //   <Item label="New York" value='ny'/>
+  //   <Item label="DC" value='dc'/>
+  // </Picker>
 
+  onPressLogout() {
+    firebase.auth.logout()
+
+    this.setState({
+      userSignedIn: false,
+      name: '',
+      year: '',
+      location: ''
+    })
   }
 
   onPressSignup() {
-    Actions.signup()
+    Actions.signup({onSuccess: (data) => {
+      this.setState({userSignedIn: true, name: data.name, year: data.year, location: data.location})
+    }})
   }
 
   onPressLogin() {
-    Actions.login()
+    Actions.login({onSuccess: (data) => {
+      this.setState({userSignedIn: true, name: data.name, year: data.year, location: data.location})
+    }})
   }
 
   onPressName() {
-    Actions.editName({text: this.props.name, onChange: (data) => this.onChange(data)})
+    Actions.editName({text: this.state.name,
+      onChange: (data) => {
+        this.setState({name: data})
+      }
+    })
   }
-
-  onChange(data){
-    this.setState({name: data})
-  }
-
-  onLoginFinished(error, result) {
-    if (error) {
-      alert("login has error: " + result.error);
-    } else if (result.isCancelled) {
-      alert("login is cancelled.");
-    } else {
-      onSuccessfulLogin();
-    }
-  }
-
-  // onSuccessfulLogin(){
-  //   AccessToken.getCurrentAccessToken().then(
-  //     (data) => {
-  //       AsyncStorage.setItem("fbAccessToken", data.accessToken.toString())
-  //     }
-  //   )
-  //
-  //   AsyncStorage.getItem("fbAccessToken").then((value) => {
-  //     console.log("Access Token Value: "+value)
-  //   }).done();
-  // }
-
-  // onLogoutFinished() {
-  //   alert("logout.")
-  // }
-
 }
 
 const pageStyles = StyleSheet.create({

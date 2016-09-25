@@ -7,7 +7,7 @@ export default class EventDetail extends Component {
   render() {
     let organizers = this.props.organizers.map( (organizer) => {
       return (
-        <View style={[pageStyles.contactContainer, pageStyles.row]} key={organizer.id}>
+        <View style={[pageStyles.contactContainer, styles.row]} key={organizer.id}>
           <Image source={{uri: organizer.photo_url}} style={styles.thumbnail}/>
           <Text style={pageStyles.contactName}>{organizer.name}</Text>
           <Text style={pageStyles.contactPhone}>{organizer.phone}</Text>
@@ -33,11 +33,6 @@ export default class EventDetail extends Component {
 }
 
 const pageStyles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 5
-  },
   titleText: {
     color: 'white'
   },

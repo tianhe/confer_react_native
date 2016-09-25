@@ -4,7 +4,7 @@ import Device from 'react-native-device'
 
 module.exports = StyleSheet.create({
   container: {
-    paddingTop: 63,
+    paddingTop: 65,
     flex: 1,
   },
   body: {
@@ -12,12 +12,15 @@ module.exports = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  picker: {
+    width: Device.width
+  },
   textinput: {
-    height: 40,
+    height: 50,
     borderColor: 'gray',
     borderWidth: 1,
     margin: 10,
-    padding: 15,
+    padding: 15
   },
   transparent_button: {
     marginTop: 10,
@@ -25,7 +28,7 @@ module.exports = StyleSheet.create({
   },
   transparent_button_text: {
     color: '#0485A9',
-    fontSize: 16
+    fontSize: 18
   },
   primary_button: {
     margin: 10,
@@ -43,12 +46,14 @@ module.exports = StyleSheet.create({
   thumbnail: {
     height: 20,
     width: 20,
-    borderRadius: 10
+    borderRadius: 10,
+    margin: 5
   },
   thumbnailLarge: {
     height: 40,
     width: 40,
-    borderRadius: 20
+    borderRadius: 20,
+    padding: 5
   },
   hero: {
     height: 150,
@@ -57,11 +62,14 @@ module.exports = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 5
+    padding: 5
   },
   separator: {
     height: 1,
     backgroundColor: '#DDDDDD'
+  },
+  monotypeFont: {
+    fontFamily: 'Palatino'
   },
   heroInfo: {
     flex: 1,
