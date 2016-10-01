@@ -70,11 +70,11 @@ class ConferApp extends Component {
         },
       ],
       contacts: [
-        {id: 1, name: 'Tian He', location: 'New York', year: '2010', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/12654661_10100776171213468_4269539037897313305_n.jpg?oh=98de39999181992a3f9cfe7bcfd2e59a&oe=5837FEB7'},
-        {id: 2, name: 'Kevin Feng', location: 'New York', year: '2014', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13043334_10102352045004757_3937804364435165693_n.jpg?oh=366ec0573b6b7cd0cd035ec576e03375&oe=587DA770'},
-        {id: 3, name: 'Nick Sheng', location: 'New York', year: '2014', bio: 'NY Lodge Chairman', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/11949268_10104278964033579_7069632376703940401_n.jpg?oh=6d078dd8ecd7c7977d243d3f45eed366&oe=58868C7B'},
-        {id: 4, name: 'Mike Lee', location: 'New York', year: '2013', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13267968_10154852317430968_4247610002803390222_n.jpg?oh=d868fda970eea5a98be7623fbd62a095&oe=583FF8D3'},
-        {id: 5, name: 'Mike Eng', location: 'New York', year: '2008', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13267968_10154852317430968_4247610002803390222_n.jpg?oh=d868fda970eea5a98be7623fbd62a095&oe=583FF8D3'},
+        {id: 1, name: 'Tian He', location: 'New York', year: '2010', phone: '770-378-7673', email: 'tianhe@gmail.com', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/12654661_10100776171213468_4269539037897313305_n.jpg?oh=98de39999181992a3f9cfe7bcfd2e59a&oe=5837FEB7'},
+        {id: 2, name: 'Kevin Feng', location: 'New York', year: '2014', phone: '555-555-5555', email: 'kevin.feng@gmail.com', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13043334_10102352045004757_3937804364435165693_n.jpg?oh=366ec0573b6b7cd0cd035ec576e03375&oe=587DA770'},
+        {id: 3, name: 'Nick Sheng', location: 'New York', year: '2014', phone: '555-555-5555', email: '', bio: 'NY Lodge Chairman', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/11949268_10104278964033579_7069632376703940401_n.jpg?oh=6d078dd8ecd7c7977d243d3f45eed366&oe=58868C7B'},
+        {id: 4, name: 'Mike Lee', location: 'New York', year: '2013', phone: '555-555-5555', email: '', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13267968_10154852317430968_4247610002803390222_n.jpg?oh=d868fda970eea5a98be7623fbd62a095&oe=583FF8D3'},
+        {id: 5, name: 'Mike Eng', location: 'New York', year: '2008', phone: '555-555-5555', email: '', photo_url: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13267968_10154852317430968_4247610002803390222_n.jpg?oh=d868fda970eea5a98be7623fbd62a095&oe=583FF8D3'},
       ]
     }
   }
@@ -83,6 +83,8 @@ class ConferApp extends Component {
     return (
       <Router>
         <Scene key="root">
+          <Scene key='signup' component={Signup} title='' />
+          <Scene key='login' component={Login} title='' />
           <Scene key='tabbar'>
             <Scene key='main' tabs={true} tabBarStyle={pageStyles.tabBarStyle} tabBarSelectedItemStyle={pageStyles.tabBarSelectedItemStyle}>
               <Scene key='eventsTab' initial title='Events' icon={TabIcon} titleStyle={pageStyles.tabTitleStyle}>
@@ -96,8 +98,6 @@ class ConferApp extends Component {
               </Scene>
               <Scene key='profileTab' title='Profile' icon={TabIcon} titleStyle={pageStyles.tabTitleStyle}>
                 <Scene key='profile' component={Profile} title="Profile"/>
-                <Scene key='login' component={Login} title="Login"/>
-                <Scene key='signup' component={Signup} title="Signup"/>
                 <Scene key='editName' component={EditName} title="Edit"/>
                 <Scene key='location' component={EditName} title="Location"/>
               </Scene>

@@ -3,7 +3,7 @@ import { StyleSheet, Text, ListView, View, TouchableHighlight, Image } from 'rea
 import { Actions } from 'react-native-router-flux'
 import SectionHeader from '../components/section_header.js'
 
-import styles from '../styles/common_styles.js'
+import styles from '../styles/common_styles'
 
 export default class ContactList extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ export default class ContactList extends Component {
         <View>
           <View style={styles.row}>
             <View style={styles.imageContainer}>
-              <Image source={{uri: rowData.photo_url}} style={styles.thumbnailLarge} />
+              <Image source={{uri: rowData.photo_url}} style={styles.thumbnail} />
             </View>
             <Text style={pageStyles.name}>{rowData.name}</Text>
           </View>

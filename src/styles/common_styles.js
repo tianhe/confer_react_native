@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import Device from 'react-native-device'
 
 module.exports = StyleSheet.create({
@@ -7,52 +7,65 @@ module.exports = StyleSheet.create({
     paddingTop: 65,
     flex: 1,
   },
+  logo: {
+    width: 175,
+    height: 175
+  },
   body: {
     flex: 9,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   picker: {
     width: Device.width
   },
-  textinput: {
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 1,
-    margin: 10,
-    padding: 15
+  textInput: {
+    height: 40,
+    borderRadius: 3,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 40,
+    marginRight: 40,
+    padding: 10,
+    backgroundColor: 'lightgray',
   },
-  transparent_button: {
+  transparentButton: {
     marginTop: 10,
-    padding: 15
+    padding: 10,
   },
-  transparent_button_text: {
+  transparentButtonText: {
     color: '#0485A9',
     fontSize: 18
   },
-  primary_button: {
-    margin: 10,
+  primaryButton: {
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 40,
+    marginRight: 40,
     padding: 15,
-    backgroundColor: '#529ecc'
+    backgroundColor: '#529ecc',
+    flexDirection: 'row',
+    borderRadius: 3,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
   },
-  primary_button_text: {
+  primaryButtonText: {
     color: '#FFF',
-    fontSize: 18
+    fontSize: 18,
   },
   image: {
     width: 100,
     height: 100
   },
   thumbnail: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-    margin: 5
-  },
-  thumbnailLarge: {
     height: 40,
     width: 40,
     borderRadius: 20,
+    margin: 5
+  },
+  thumbnailLarge: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
     padding: 5
   },
   hero: {

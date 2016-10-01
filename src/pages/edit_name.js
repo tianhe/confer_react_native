@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 
-import styles from '../styles/common_styles.js';
+import styles from '../styles/common_styles';
 
 export default class EditName extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class EditName extends Component {
     return(
       <View style={styles.container}>
         <TextInput
-          style={styles.textinput}
+          style={styles.textInput}
           onChangeText={(text) => {this.onChangeText(text)}}
           value={this.state.text}
         />

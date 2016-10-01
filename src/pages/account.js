@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, AsyncStorage } from 'react-native';
 import Button from '../components/button';
 import Header from '../components/header';
 
-import styles from '../styles/common_styles.js';
+import styles from '../styles/common_styles';
 
 // import Firebase from 'firebase';
 // let app = new Firebase("YOUR-FIREBASE-APP-URL");
@@ -46,10 +46,10 @@ export default class Account extends Component {
                 source={{uri: this.state.user.password.profileImageURL}}
               />
               <Button
-                  text="Logout"
-                  onpress={this.logout.bind(this)}
-                  button_styles={styles.primary_button}
-                  button_text_styles={styles.primary_button_text} />
+                text="Logout"
+                onpress={this.logout.bind(this)}
+                button_styles={styles.primaryButton}
+                buttonText_styles={styles.primaryButtonText} />
             </View>
         }
         </View>

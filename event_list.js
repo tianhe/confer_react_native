@@ -3,7 +3,7 @@ import { StyleSheet, Text, ListView, View, TouchableHighlight } from 'react-nati
 import { Actions } from 'react-native-router-flux'
 import Moment from 'moment'
 
-import styles from '../styles/common_styles.js';
+import styles from '../styles/common_styles';
 
 export default class EventList extends Component {
   constructor(props) {

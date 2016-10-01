@@ -4,13 +4,9 @@ import { AppRegistry, Text, View, TouchableHighlight } from 'react-native';
 export default class Button extends Component {
   render(){
     return (
-      <View>
-        <TouchableHighlight underlayColor={"#E8E8E8"} onPress={this.props.onPress} style={this.props.buttonStyles}>
-          <View>
-            <Text style={this.props.buttonTextStyles}>{this.props.text}</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
+      <TouchableHighlight underlayColor={"#E8E8E8"} onPress={this.props.onPress} style={this.props.buttonStyles}>
+        <Text style={this.props.buttonTextStyles}>{this.props.text}</Text>
+      </TouchableHighlight>
     );
   }
 }

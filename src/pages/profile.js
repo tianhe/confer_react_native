@@ -21,39 +21,22 @@ export default class Profile extends Component {
   }
 
   render() {
-    if(this.state.userSignedIn){
-      return(
-        <View style={styles.container}>
-          <View style={pageStyles.intro}>
-            <TouchableHighlight onPress={this.onPressName.bind(this)}>
-              <Text>{this.state.name}</Text>
-            </TouchableHighlight>
-            <Text>{this.state.year}</Text>
-            <Text>{this.state.location}</Text>
-          </View>
-          <Button
-            text="Logout"
-            onPress={this.onPressLogout.bind(this)}
-            buttonStyles={styles.primary_button}
-            buttonTextStyles={styles.primary_button_text} />
+    return(
+      <View style={styles.container}>
+        <View style={pageStyles.intro}>
+          <TouchableHighlight onPress={this.onPressName.bind(this)}>
+            <Text>{this.state.name}</Text>
+          </TouchableHighlight>
+          <Text>{this.state.year}</Text>
+          <Text>{this.state.location}</Text>
         </View>
-      )
-    } else {
-      return(
-        <View style={styles.container}>
-          <Button
-            text="Signup"
-            onPress={this.onPressSignup.bind(this)}
-            buttonStyles={styles.primary_button}
-            buttonTextStyles={styles.primary_button_text} />
-          <Button
-            text="Login"
-            onPress={this.onPressLogin.bind(this)}
-            buttonStyles={styles.primary_button}
-            buttonTextStyles={styles.primary_button_text} />
-        </View>
-      )
-    }
+        <Button
+          text="Logout"
+          onPress={this.onPressLogout.bind(this)}
+          buttonStyles={styles.primaryButton}
+          buttonTextStyles={styles.primaryButtonText} />
+      </View>
+    )
   }
   // <Picker
   //   style={styles.picker}

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { AsyncStorage, Text, Picker, Item, TextInput, View, StyleSheet } from 'react-native';
+import { AsyncStorage, Text, Picker, Image, Item, TextInput, View, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux'
-import { LoginButton, AccessToken } from 'react-native-fbsdk'
 
-import Button from '../components/button';
-import styles from '../styles/common_styles.js';
+import Device from 'react-native-device'
+import Button from '../components/button'
+import FBLogin from '../components/fb_login'
+import styles from '../styles/common_styles'
 
 import * as firebase from 'firebase'
 
@@ -26,82 +27,58 @@ export default class Signup extends Component {
     return (
       <View style={[styles.container]}>
         <View style={styles.body}>
-          <LoginButton
-            onLoginFinished={this.fbLoginFinished}
-            onLogoutFinished={() => alert("logout.")} />
+          <Image source={require('../images/logo.png')} style={styles.logo}/>
 
           <TextInput
-            style={styles.textinput}
+            style={styles.textInput}
             onChangeText={(text) => this.setState({email: text})}
             value={this.state.email}
             placeholder={"Email Address"}
           />
           <TextInput
-            style={styles.textinput}
+            style={styles.textInput}
             onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
             secureTextEntry={true}
             placeholder={"Password"}
           />
           <TextInput
-            style={styles.textinput}
+            style={styles.textInput}
             onChangeText={(text) => this.setState({name: text})}
             value={this.state.name}
-            placeholder={"Name"}
+            placeholder={"Full Name"}
           />
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => this.setState({year: text})}
-            value={this.state.year}
-            placeholder={"Initiation Year"}
-            keyboardType='numeric'
-          />
-          <Button text={this.state.location}
-            onPress={this.setLocation.bind(this)}
-            buttonStyles={styles.transparent_button}
-            buttonTextStyles={styles.transparent_button_text} />
           <Button
             text="Signup"
             onPress={this.signup.bind(this)}
-            buttonStyles={styles.primary_button}
-            buttonTextStyles={styles.primary_button_text} />
+            buttonStyles={styles.primaryButton}
+            buttonTextStyles={styles.primaryButtonText} />
+          <View style={{margin: 20, width: Device.width, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+            <View style={{width: Device.width*0.3, height: 1, backgroundColor: 'gray'}}/>
+            <Text>OR</Text>
+            <View style={{width: Device.width*0.3, height: 1, backgroundColor: 'gray'}}/>
+          </View>
+          <View>
+            <FBLogin/>
+          </View>
+
+        </View>
+
+        <View style={pageStyles.goToSignInButton}>
           <Button
-            text="Got an Account?"
-            onPress={this.goToLogin.bind(this)}
-            buttonStyles={styles.transparent_button}
-            buttonTextStyles={styles.transparent_button_text} />
+            text="Already have an Account? Sign In"
+            onPress={this.goToLogin}
+            buttonStyles={styles.transparentButton}
+            buttonTextStyles={[styles.transparentButtonText, pageStyles.signInText]} />
         </View>
       </View>
-    );
+    )
   }
 
   onValueChange(key, value){
     const newState = {}
     newState[key] = value
     this.setState(newState)
-  }
-
-  fbLoginFinished(error, result){
-    if (error) {
-      console.log("login has error: " + error);
-    } else if (result.isCancelled) {
-      console.log("login is cancelled.");
-    } else {
-      console.log("Facebook login successful, firebase is next")
-      AccessToken.getCurrentAccessToken()
-      .then(accessTokenData => {
-        let accessToken = accessTokenData.accessToken
-        const credential = firebase.auth.FacebookAuthProvider.credential(accessToken)
-
-        firebase.auth.currentUser.link(credential).then( user => {
-          console.log('successful link: ', user)
-          firebase.auth().signInWithCredential(credential)
-        })
-      })
-      .catch(err => {
-        console.log('facebook err: '+ err)
-      })
-    }
   }
 
   signup(){
@@ -113,7 +90,7 @@ export default class Signup extends Component {
         console.log('child added')
         let user = childSnapshot.val()
 
-        this.props.onSuccess({location: user.location, year: user.year, name: firebaseUser.displayName})
+        Actions.profile({location: user.location, year: user.year, name: firebaseUser.displayName})
       })
 
     })
@@ -139,11 +116,15 @@ export default class Signup extends Component {
   goToLogin(){
     Actions.login()
   }
-
-  setLocation(){
-    Actions.setLocation({onChange: (data) => this.setState({location: data})})
-  }
 }
 
 const pageStyles = StyleSheet.create({
+  goToSignInButton: {
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  signInText:{
+    fontSize: 15
+  }
 })

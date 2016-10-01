@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 
+import styles from '../styles/common_styles';
+
 export default class EditName extends Component {
   constructor(props) {
     super(props);
@@ -10,9 +12,9 @@ export default class EditName extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <View style={styles.intro}>
+        <View style={pageStyles.intro}>
           <TextInput
-            style={styles.textInput}
+            style={styles.textinput}
             onChangeText={(text) => {this.onChangeText(text)}}
             value={this.state.text}
           />
@@ -27,19 +29,11 @@ export default class EditName extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 80
-  },
+const pageStyles = StyleSheet.create({
   intro: {
     flex: 1,
     flexDirection: 'column',
     margin: 10,
     height: 40
   },
-  textInput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
-  }
 });

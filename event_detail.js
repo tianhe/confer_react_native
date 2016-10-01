@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 
-import styles from '../styles/common_styles.js';
+import Button from '../components/button'
+import styles from '../styles/common_styles';
 
 export default class EventDetail extends Component {
   render() {
@@ -27,6 +28,11 @@ export default class EventDetail extends Component {
         <View>
           {organizers}
         </View>
+        <Button
+          text="Add Photo"
+          onpress={this.logout.bind(this)}
+          button_styles={styles.primaryButton}
+          buttonText_styles={styles.primaryButtonText}/>
       </View>
     )
   }

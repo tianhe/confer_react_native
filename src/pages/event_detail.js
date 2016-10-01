@@ -3,7 +3,9 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 import Device from 'react-native-device'
 import Moment from 'moment'
 
-import styles from '../styles/common_styles.js';
+import Icon from 'react-native-vector-icons/FontAwesome'
+import Button from '../components/button'
+import styles from '../styles/common_styles';
 
 export default class EventDetail extends Component {
   render() {
@@ -12,7 +14,8 @@ export default class EventDetail extends Component {
         <View style={[pageStyles.contactContainer, styles.row]} key={organizer.id}>
           <Image source={{uri: organizer.photo_url}} style={styles.thumbnail}/>
           <Text style={pageStyles.contactName}>{organizer.name}</Text>
-          <Text style={pageStyles.contactPhone}>{organizer.phone}</Text>
+          <Icon.Button name="phone" backgroundColor="#3B5998" onPress={this.call} iconStyle={{marginRight: 0}} borderRadius={40} fontSize={40}/>
+          <Icon.Button name="comment-o" backgroundColor="#3B5998" onPress={this.call} iconStyle={{marginRight: 0}} borderRadius={40} fontSize={40}/>
         </View>
       )
     });
@@ -31,8 +34,17 @@ export default class EventDetail extends Component {
         <View style={styles.primaryInfo}>
           {organizers}
         </View>
+        <Button
+          text="Add Photo"
+          onPress={this.addPhoto.bind(this)}
+          buttonStyles={styles.primaryButton}
+          buttonTextStyles={styles.primaryButtonText} />
       </View>
     )
+  }
+
+  addPhoto(){
+    
   }
 }
 
